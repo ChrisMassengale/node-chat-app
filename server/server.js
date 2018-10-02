@@ -18,15 +18,28 @@ let io = socketIO(server);
 io.on('connection', (socket) => {
   console.log('New User Connected');
 
+  socket.emit('newMessage', {
+    from: "fuck@aol.com",
+    text: "who the fuck?",
+    createdAt: new Date()
+  });
+
+  
+  socket.on('createMessage', (message) => {
+    message.createdAt = new Date();
+    console.log("Received createMessage from Client at Server: ", message);
+  });
+
   socket.on('disconnect', () => {
     console.log('User was disconnected!')
   });
 }); //turns on
-// app.use(express.static(publicPath)) //Used in video to display the index
 
-app.get('/', (request, response) => {
-  response.status(200).sendFile(publicPath + "/index.html");
-});
+app.use(express.static(publicPath)) //Used in video to display the index
+
+// app.get('/', (request, response) => {
+//   response.status(200).sendFile(publicPath + "/index.html");
+// });
 
 
 
