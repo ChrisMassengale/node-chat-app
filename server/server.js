@@ -17,17 +17,11 @@ let io = socketIO(server);
 
 io.on('connection', (socket) => {
   console.log('New User Connected');
-
-  socket.emit('newMessage', {
-    from: "fuck@aol.com",
-    text: "who the fuck?",
-    createdAt: new Date()
-  });
-
   
   socket.on('createMessage', (message) => {
-    message.createdAt = new Date();
+    message.createdAt = new Date().getTime();
     console.log("Received createMessage from Client at Server: ", message);
+    io.emit('newMessage', message)
   });
 
   socket.on('disconnect', () => {

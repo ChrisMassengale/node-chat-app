@@ -2,10 +2,6 @@ var socket = io(); //critical
 
 socket.on('connect', function() {
   console.log('connected to server');
-  socket.emit('createMessage', {
-    from: 'The Beasty Boys',
-    text: 'No sleep til Brooklyn'
-  });
 });
 
 socket.on('disconnect', function() {
